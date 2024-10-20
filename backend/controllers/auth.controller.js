@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 
-export const signup = async(req, res) => {
-   try {
+export const signup = async (req, res) => {
+	try {
 		const { fullName, username, password, confirmPassword, gender } = req.body;
 
 		if (password !== confirmPassword) {
@@ -53,9 +53,8 @@ export const signup = async(req, res) => {
 	}
 };
 
-
-export const login = async(req, res) => {
-   try {
+export const login = async (req, res) => {
+	try {
 		const { username, password } = req.body;
 		const user = await User.findOne({ username });
 		const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
@@ -78,9 +77,8 @@ export const login = async(req, res) => {
 	}
 };
 
-
 export const logout = (req, res) => {
-   try {
+	try {
 		res.cookie("jwt", "", { maxAge: 0 });
 		res.status(200).json({ message: "Logged out successfully" });
 	} catch (error) {
